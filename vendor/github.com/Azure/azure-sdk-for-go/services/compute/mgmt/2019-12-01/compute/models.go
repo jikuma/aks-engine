@@ -20,6 +20,7 @@ package compute
 import (
 	"context"
 	"encoding/json"
+
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/date"
@@ -10633,7 +10634,7 @@ type VirtualMachineScaleSet struct {
 	// Identity - The identity of the virtual machine scale set, if configured.
 	Identity *VirtualMachineScaleSetIdentity `json:"identity,omitempty"`
 	// Zones - The virtual machine scale set zones. NOTE: Availability zones can only be set when you create the scale set
-	Zones *[]string `json:"zones,omitempty"`
+	Zones *string `json:"zones,omitempty"`
 	// ID - READ-ONLY; Resource Id
 	ID *string `json:"id,omitempty"`
 	// Name - READ-ONLY; Resource name
@@ -10720,7 +10721,7 @@ func (vmss *VirtualMachineScaleSet) UnmarshalJSON(body []byte) error {
 			}
 		case "zones":
 			if v != nil {
-				var zones []string
+				var zones string
 				err = json.Unmarshal(*v, &zones)
 				if err != nil {
 					return err
